@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import {  HomeFilled } from '@ant-design/icons';
+import { Input } from 'antd';
+
+const { Search } = Input;
 const { Header, Footer,  Content } = Layout;
-
-
 
 function NavigateBar() {
     return (
@@ -12,14 +14,20 @@ function NavigateBar() {
       <Header>
         <div className="logo" >
           <a href = "/index.html">
-            <img src="./favicon.ico" style={{width: '80px',height: '30px'}} />
+            <HomeFilled twoToneColor />
+            {/* <img src="./home.jfif" style={{width: '50px',height: '50px'}} /> */}
+            <text>&nbsp;&nbsp;校园论坛</text>
           </a>   
         </div>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+        <div className="search">
+          <Search placeholder="搜索问题或找人" onSearch={value => console.log(value)} enterButton />
+        </div>
+        <Menu size="small" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+          <Menu.Item className="menuItemStyle" key="1">版面列表</Menu.Item>
+          <Menu.Item className="menuItemStyle" key="2">新帖</Menu.Item>
+          <Menu.Item className="menuItemStyle" key="3">通知</Menu.Item>
         </Menu>
+
       </Header>
       <Content style={{ padding: '0 50px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
