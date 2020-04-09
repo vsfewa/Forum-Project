@@ -5,11 +5,12 @@ import {HomeFilled} from '@ant-design/icons';
 import Text from "antd/es/typography/Text";
 import axios from 'axios';
 import cookie from 'react-cookies'
+import Router from './Router/Router'
 
 
 const {Search} = Input;
 const {Header, Footer, Content} = Layout;
-const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=106.12.27.104:80&scope=user&state=1";
+const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=106.12.27.104:80/callback&scope=user&state=1";
 
 
 const userCenter = (
@@ -96,5 +97,11 @@ class NavigateBar extends React.Component {
         );
     }
 }
-
+class App extends React.Component {
+    render(){
+        return (
+        <Router />
+        );
+    }
+}
 export default NavigateBar;

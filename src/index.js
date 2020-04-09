@@ -3,9 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import NavigateBar from './App';
 
-ReactDOM.render(  
-    <React.StrictMode> 
-        <NavigateBar />
-    </React.StrictMode>, 
-  document.getElementById('root')
-);
+export default class Index extends React.Component {
+  render() {
+      return (<React.StrictMode> 
+                <NavigateBar />
+              </React.StrictMode>
+      );
+  }
+}
+
+ReactDOM.render(<Index />, document.getElementById("root"));
+
+
