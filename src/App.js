@@ -34,11 +34,18 @@ const userCenter = (
 async function ToLogin(urlParam) {
     let code = urlParam.split("&")[0].split("=")[1];
     let state = urlParam.split("&")[1].split("=")[1];
-    let person_info = (await axios.post('/api/githubLogin', {params: {code: code,state:state}})).data;
-    console.log(person_info);
-    cookie.save('login', person_info.login);
-    cookie.save('token', person_info.token);
-    cookie.save('avatarUrl', person_info.avatar_url);
+    let formData = new FormData();
+    formData.append('code',code);
+    formData.append('state',state);
+    let person_info = (await axios.post('/api/githubLogin',formData)).data;
+    let success = person_info.state;
+    if(success){
+        let username = person_info.message.split(";")[0];
+        let avatar_url = person_info.message.split(";")[1];
+        cookie.save('login', success);
+        cookie.save('username', username);
+        cookie.save('avatarUrl', avatar_url);
+    }
     return person_info;
 }
 
@@ -54,12 +61,12 @@ class NavigateBar extends React.Component {
     }
 
     render() {
-        if (cookie.load('login') === undefined)
+        if (!cookie.load('login'))
             this.loginButton = <a href={loginGithubUrl}>登录</a>;
         else
             this.loginButton = <Dropdown overlay={userCenter}>
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                    {cookie.load('login')}&nbsp;&nbsp;<Avatar shape="square" size={28} src={cookie.load('avatarUrl')}/>
+                    {cookie.load('username')}&nbsp;&nbsp;<Avatar shape="square" size={28} src={cookie.load('avatarUrl')}/>
                 </a>
             </Dropdown>;
 
