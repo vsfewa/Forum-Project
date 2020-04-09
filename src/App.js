@@ -9,7 +9,7 @@ import cookie from 'react-cookies'
 
 const {Search} = Input;
 const {Header, Footer, Content} = Layout;
-const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=106.12.27.104:5566/callback&scope=user&state=1";
+const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=106.12.27.104:80&scope=user&state=1";
 
 
 const userCenter = (

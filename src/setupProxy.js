@@ -6,5 +6,5 @@ module.exports = function (app) {
     app.use(proxy('/api/', {
         target: 'http://106.12.27.104:8080',
         changeOrigin: true
-    }))
-}
+    }));
+};
