@@ -5,13 +5,10 @@ import {HomeFilled} from '@ant-design/icons';
 import Text from "antd/es/typography/Text";
 import axios from 'axios';
 import cookie from 'react-cookies'
-import Router from './Router/Router'
-
 
 const {Search} = Input;
 const {Header, Footer, Content} = Layout;
-const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=106.12.27.104:80/callback&scope=user&state=1";
-
+const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=http://106.12.27.104/callback&scope=user&state=1";
 
 const userCenter = (
     <Menu theme="dark">
@@ -35,7 +32,9 @@ const userCenter = (
 
 
 async function ToLogin(urlParam) {
-    let person_info = (await axios.get('/api/toLogin', {params: {urlParam: urlParam}})).data;
+    let code = urlParam.split("&")[0].split("=")[1];
+    let state = urlParam.split("&")[1].split("=")[1];
+    let person_info = (await axios.post('/api/githubLogin', {params: {code: code,state:state}})).data;
     console.log(person_info);
     cookie.save('login', person_info.login);
     cookie.save('token', person_info.token);
@@ -97,11 +96,5 @@ class NavigateBar extends React.Component {
         );
     }
 }
-class App extends React.Component {
-    render(){
-        return (
-        <Router />
-        );
-    }
-}
+
 export default NavigateBar;
