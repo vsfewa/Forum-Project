@@ -1,7 +1,7 @@
 import React from 'react';
 import '../asset/navigate.css';
 import {Layout, Menu, Avatar, Dropdown, Input} from 'antd';
-import {HomeFilled,DownOutlined} from '@ant-design/icons';
+import {HomeFilled,DownSquareFilled} from '@ant-design/icons';
 import Text from "antd/es/typography/Text";
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -57,7 +57,7 @@ async function ToLogin(urlParam) {
         let username = person_info.message.split(";")[0];
         let avatar_url = person_info.message.split(";")[1];
         cookie.save('login', success);
-        cookie.save('usernam', username);
+        cookie.save('username', username);
         cookie.save('avatarUrl', avatar_url);
     }
     return person_info;
@@ -77,14 +77,14 @@ class NavigateBar extends React.Component {
     render() {
         if (!cookie.load('login'))
             this.loginButton = 
-            <Dropdown overlay={notLogin}>
-                <text style={{width:'200px', height:'20px'}} className="ant-dropdown-link" >
-                    注册/登录<DownOutlined />
-                </text>
+            <Dropdown overlay={notLogin} className="dropdown">
+                <a className="ant-dropdown-link" className="ant-dropdown-link" >
+                    注册/登录&nbsp;&nbsp;<DownSquareFilled />
+                </a>
             </Dropdown>;
         else
             this.loginButton = 
-            <Dropdown overlay={userCenter}>
+            <Dropdown overlay={userCenter} className="dropdown">
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                     {cookie.load('username')}&nbsp;&nbsp;<Avatar shape="square" size={28} src={cookie.load('avatarUrl')}/>
                 </a>
@@ -105,7 +105,7 @@ class NavigateBar extends React.Component {
                         <Menu.Item className="menuItemStyle" key="1">版面列表</Menu.Item>
                         <Menu.Item className="menuItemStyle" key="2">新帖</Menu.Item>
                         <Menu.Item className="menuItemStyle" key="3">通知</Menu.Item>
-                        <Menu.Item className="menuItemStyle" key="4">{this.loginButton}</Menu.Item>
+                        {this.loginButton}
                     </Menu>
                 </Header>
         );
