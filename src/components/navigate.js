@@ -1,18 +1,24 @@
 import React from 'react';
 import '../asset/navigate.css';
+
 import {Layout, Menu, Avatar, Dropdown, Input,Button,Breadcrumb} from 'antd';
+
 import {HomeFilled,DownSquareFilled} from '@ant-design/icons';
 import Text from "antd/es/typography/Text";
 import axios from 'axios';
 import cookie from 'react-cookies';
+
 import { Link,BrowserRouter as Router,Route} from 'react-router-dom';
 const {Footer, Content} = Layout;
+
 
 const {Search} = Input;
 const {Header} = Layout;
 const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=http://106.12.27.104/callback&scope=user&state=1";
 
+
 //上方菜单栏实现
+
 const userCenter = (
     <Menu theme="dark">
         <Menu.Item className="userCenterItemStyle">
@@ -33,6 +39,7 @@ const userCenter = (
     </Menu>
 );
 
+
 //右上角登陆，注册界面下拉框实现
 const notLogin = (
     <Menu theme="dark">
@@ -49,6 +56,17 @@ const notLogin = (
         </Menu.Item>
         <Menu.Item className="userCenterItemStyle">
             <a href={loginGithubUrl}><Button className="e-button" type="primary">GitHub登录</Button></a>
+
+const notLogin = (
+    <Menu theme="dark">
+        <Menu.Item className="userCenterItemStyle">
+            注册 
+        </Menu.Item>
+        <Menu.Item className="userCenterItemStyle">
+            登录
+        </Menu.Item>
+        <Menu.Item className="userCenterItemStyle">
+            <a href={loginGithubUrl}>GitHub登录</a>
         </Menu.Item>
     </Menu>
 );
@@ -100,9 +118,13 @@ class NavigateBar extends React.Component {
             </Dropdown>;
 
         return (
+
                 <Layout className="layout">
                 <Header>
              
+
+                <Header>
+
                     <div className="logo">
                         <a href="/index.html">
                             <HomeFilled twoToneColor/>
@@ -119,6 +141,7 @@ class NavigateBar extends React.Component {
                         {this.loginButton}
                     </Menu>
                 </Header>
+
        
           <Content style={{padding: '0 50px'}}>
                 <Breadcrumb style={{margin: '16px 0'}}>
@@ -130,6 +153,7 @@ class NavigateBar extends React.Component {
             </Content>
             <Footer style={{textAlign: 'center'}}>Design ©2020 by Group I</Footer>
         </Layout>
+
         );
     }
 }
