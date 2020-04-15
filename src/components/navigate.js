@@ -1,17 +1,11 @@
 import React from 'react';
 import '../asset/navigate.css';
-
-import {Layout, Menu, Avatar, Dropdown, Input,Button,Breadcrumb} from 'antd';
-
+import {Layout, Menu, Avatar, Dropdown, Input,Button} from 'antd';
 import {HomeFilled,DownSquareFilled} from '@ant-design/icons';
 import Text from "antd/es/typography/Text";
 import axios from 'axios';
 import cookie from 'react-cookies';
-
-import { Link,BrowserRouter as Router,Route} from 'react-router-dom';
-const {Footer, Content} = Layout;
-
-
+import {Link} from 'react-router-dom';
 const {Search} = Input;
 const {Header} = Layout;
 const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d25125e25fe36054a4de&redirect_uri=http://106.12.27.104/callback&scope=user&state=1";
@@ -19,6 +13,7 @@ const loginGithubUrl = "https://github.com/login/oauth/authorize?client_id=d2512
 
 //上方菜单栏实现
 
+//上方菜单栏实现
 const userCenter = (
     <Menu theme="dark">
         <Menu.Item className="userCenterItemStyle">
@@ -56,17 +51,11 @@ const notLogin = (
         </Menu.Item>
         <Menu.Item className="userCenterItemStyle">
             <a href={loginGithubUrl}><Button className="e-button" type="primary">GitHub登录</Button></a>
-
-const notLogin = (
-    <Menu theme="dark">
-        <Menu.Item className="userCenterItemStyle">
-            注册 
         </Menu.Item>
         <Menu.Item className="userCenterItemStyle">
-            登录
-        </Menu.Item>
-        <Menu.Item className="userCenterItemStyle">
-            <a href={loginGithubUrl}>GitHub登录</a>
+            <Button className="e-button" type="primary" onClick={
+                function(){cookie.remove('login');cookie.remove('username');cookie.remove('avatarUrl');}
+                }>注销</Button>
         </Menu.Item>
     </Menu>
 );
@@ -118,44 +107,24 @@ class NavigateBar extends React.Component {
             </Dropdown>;
 
         return (
-
-                <Layout className="layout">
-                <Header>
-             
-
-                <Header>
-
-                    <div className="logo">
-                        <a href="/index.html">
-                            <HomeFilled twoToneColor/>
-                            <Text style={{color: '#1890ff'}}>&nbsp;&nbsp;校园论坛</Text>
-                        </a>
-                    </div>
-                    <div className="search">
-                        <Search placeholder="搜索问题或找人" onSearch={value => console.log(value)} enterButton/>
-                    </div>
-                    <Menu size="small" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                        <Menu.Item className="menuItemStyle" key="1">版面列表</Menu.Item>
-                        <Menu.Item className="menuItemStyle" key="2">新帖</Menu.Item>
-                        <Menu.Item className="menuItemStyle" key="3">通知</Menu.Item>
-                        {this.loginButton}
-                    </Menu>
-                </Header>
-
-       
-          <Content style={{padding: '0 50px'}}>
-                <Breadcrumb style={{margin: '16px 0'}}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className="site-layout-content">Content</div>
-            </Content>
-            <Footer style={{textAlign: 'center'}}>Design ©2020 by Group I</Footer>
-        </Layout>
-
+            <Header>
+                <div className="logo">
+                    <a href="/index.html">
+                        <HomeFilled twoToneColor/>
+                        <Text style={{color: '#1890ff'}}>&nbsp;&nbsp;校园论坛</Text>
+                    </a>
+                </div>
+                <div className="search">
+                    <Search placeholder="搜索问题或找人" onSearch={value => console.log(value)} enterButton/>
+                </div>
+                <Menu size="small" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+                    <Menu.Item className="menuItemStyle" key="1">版面列表</Menu.Item>
+                    <Menu.Item className="menuItemStyle" key="2">新帖</Menu.Item>
+                    <Menu.Item className="menuItemStyle" key="3">通知</Menu.Item>
+                    {this.loginButton}
+                </Menu>
+            </Header>
         );
     }
 }
-
 export default NavigateBar;
