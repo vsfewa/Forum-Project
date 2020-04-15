@@ -6,7 +6,7 @@ import cookie from 'react-cookies';
 
 const {Footer}=Layout;
 
-export default class register extends React.Component{
+export default class Register extends React.Component{
     render() {
         return(
         <Layout className="layout">

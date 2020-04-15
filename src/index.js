@@ -4,7 +4,7 @@ import { BrowserRouter as Router,Route} from 'react-router-dom';
 import Register from './pages/register';
 import Login from './pages/login';
 import HomePage from './pages/homepage';
-import Forgetpwd from './pages/forgetpwd';
+import Modifypwd from './pages/modifypwd';
 
 export default class Routing extends React.Component {
   render() {
@@ -15,7 +15,7 @@ export default class Routing extends React.Component {
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/forgetpwd" component={Forgetpwd}/>
+            <Route path="/modifypwd" component={Modifypwd}/>
        	  </div>
         </Router>
       );

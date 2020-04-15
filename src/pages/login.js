@@ -11,7 +11,7 @@ class Login extends React.Component{
         return(
         <Layout className="layout">
             <NavigateBar />
-            <div>~~~注册表单~~~~</div>
+            <div>~~~登录表单~~~~</div>
             <Footer style={{textAlign: 'center'}}>Design ©2020 by Group I</Footer>
         </Layout>
         );
