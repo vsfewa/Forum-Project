@@ -3,6 +3,7 @@ import NavigateBar from '../components/navigate';
 import React from 'react';
 import { Form, Input, Button, Checkbox, Breadcrumb} from 'antd';
 import axios from 'axios';
+import { FormOutlined } from '@ant-design/icons';
 
 const {Footer,Content} = Layout;
 
@@ -13,7 +14,6 @@ const layout = {
 const tailLayout = {
 wrapperCol: { offset: 8, span: 16 },
 };
-  
 
 const onFinish = values => {
     console.log('Success:', values);
@@ -35,10 +35,8 @@ async function applyEmail(emailAddress){
 
     }
 }
-
-
-
-export default class Modifypwd extends React.Component{
+@Form.create()
+class Modifypwd extends React.Component{
     formRef = React.createRef();
     checkEmail(rule,value,callback){
         const reg = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/;
@@ -47,10 +45,26 @@ export default class Modifypwd extends React.Component{
         }
         callback();
     }
-    handleSubmit = () => {
+    handleSubmit=(e)=>{
+        let formData = new FormData();
+        const { form: { validateFields } } = this.props;
+        e.preventDefault()
+        
+        validateFields((errors, values) => {
+            if (errors) {
+                return;
+            }
+            formData.append('email',values.email);
+            formData.append('password',values.password);
+            formData.append('token',values.captcha);
+           console.log(formData)})
     }
 
     render() {
+        const {form:{getFieldDecorator} } = this.props;
+        const emailDecorator = getFieldDecorator('email');
+        const passwordDecorator = getFieldDecorator('password');
+        const captchaDecorator = getFieldDecorator('captacha');
         return(
         <Layout className="layout">
             <NavigateBar />
@@ -78,7 +92,7 @@ export default class Modifypwd extends React.Component{
                             }
                         ]}
                     >
-                        <Input />
+                       {emailDecorator(<Input />)}
                     </Form.Item>
 
                     <Form.Item
@@ -86,8 +100,7 @@ export default class Modifypwd extends React.Component{
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
-                        
-                        <Input.Password/>
+                      {passwordDecorator(<Input />)}
                     </Form.Item>
 
                     <Form.Item
@@ -95,7 +108,7 @@ export default class Modifypwd extends React.Component{
                         name="captcha"
                         rules={[{ required: true, message: 'Please input captcha!' }]}
                     >
-                        <Input allowClear={true}/>
+                     {captchaDecorator(<Input />)}
                     </Form.Item>
 
                     <Form.Item {...tailLayout}>
