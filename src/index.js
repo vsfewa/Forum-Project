@@ -13,6 +13,7 @@ export default class Routing extends React.Component {
           <div>
             {/*index.js不做任何界面渲染，只引入跳转路径，初始界面为/（homepage），使用‘exact’防止NavigateBar界面的重复渲染*/}
             <Route exact path="/" component={HomePage} />
+            <Route path="/callback" component={HomePage} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/modifypwd" component={Modifypwd}/>
