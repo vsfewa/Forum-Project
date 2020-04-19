@@ -13,18 +13,21 @@ const tailLayout = {wrapperCol: { offset: 8, span: 16 },};
 
 async function onFinish(values){
     let formData = new FormData();
-    let email = values.email,password=values.password,token=values.token;
+    let email = values.email,password=values.password,token=values.token, autoken=cookie.load('token');
     formData.append('email',email);
     formData.append('password',password);
     formData.append('token',token);
-
+    formData.append('authorizeToken',autoken);
+    console.log("token:"+token+" \n authorizeToken:"+autoken);
     let modify_info = (await axios.post('/api/modify',formData)).data;
+    console.log(modify_info);
     let success = modify_info.state;
     if(success){
         console.log(modify_info);
+        window.location.href("http://106.12.27.104/");
     }
     else {
-        console.log("!!!");
+        alert(modify_info.message);
     }
 };
 async function sendEmail(emailAddress){
@@ -82,7 +85,7 @@ export default class Modifypwd extends React.Component{
     }
     applyEmail(){
         let email = this.state.email;
-        if(sendEmail(email)===true){
+        if(sendEmail(email)){
             this.count();
         }
     }
