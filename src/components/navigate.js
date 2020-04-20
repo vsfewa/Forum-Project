@@ -67,7 +67,12 @@ async function ToLogin(urlParam) {
     let formData = new FormData();
     formData.append('code',code);
     formData.append('state',state);
-    let person_info = (await axios.post('/api/githubLogin',formData)).data;
+
+    let person_info = (await axios.post('/api/githubLogin',{
+        code:code,
+        state:state
+    })).data;
+
     let success = person_info.state;
     if(success){
         let username = person_info.message.split(";")[0];
@@ -93,7 +98,7 @@ class NavigateBar extends React.Component {
     }
 
     render() {
-        if (!cookie.load('token'))
+        if (cookie.load('token')==undefined||cookie.load('token')==null)
             this.loginButton = 
             <Dropdown overlay={notLogin} className="dropdown">
                 <a className="ant-dropdown-link" className="ant-dropdown-link" >

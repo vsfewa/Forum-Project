@@ -17,9 +17,11 @@ async function onFinish(values){
     formData.append('email',email);
     formData.append('password',password);
     formData.append('token',token);
-    formData.append('authorizeToken',autoken);
-    console.log("token:"+token+" \n authorizeToken:"+autoken);
-    let modify_info = (await axios.post('/api/modify',formData)).data;
+    let modify_info = (await axios.post('/api/modify',formData,{
+        headers:{
+            'authorizeToken':autoken
+        }
+    })).data;
     console.log(modify_info);
     let success = modify_info.state;
     if(success){
