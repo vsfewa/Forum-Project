@@ -54,7 +54,7 @@ const notLogin = (
         </Menu.Item>
         <Menu.Item className="userCenterItemStyle">
             <Button className="e-button" type="primary" onClick={
-                function(){cookie.remove('username');cookie.remove('avatarUrl');cookie.remove('token');}
+                function(){cookie.remove('name');cookie.remove('avatarUrl');cookie.remove('token');}
                 }>注销</Button>
         </Menu.Item>
     </Menu>
@@ -78,7 +78,7 @@ async function ToLogin(urlParam) {
         let username = person_info.message.split(";")[0];
         let avatar_url = person_info.message.split(";")[1];
         let token = person_info.authorizeToken;
-        cookie.save('username', username);
+        cookie.save('name', username);
         cookie.save('avatarUrl', avatar_url);
         cookie.save('token',token);
         console.log(token);
@@ -109,7 +109,7 @@ class NavigateBar extends React.Component {
             this.loginButton = 
             <Dropdown overlay={userCenter} className="dropdown">
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                    {cookie.load('username')}&nbsp;&nbsp;<Avatar shape="square" size={28} src={cookie.load('avatarUrl')}/>
+                    {cookie.load('name')}&nbsp;&nbsp;<Avatar shape="square" size={28} src={cookie.load('avatarUrl')}/>
                 </a>
             </Dropdown>;
 
