@@ -12,25 +12,28 @@ const layout = {labelCol: { span: 8 },wrapperCol: { span: 16 },};
 const tailLayout = {wrapperCol: { offset: 8, span: 16 },};
 
 async function onFinish(values){
-    let formData = new FormData();
     let email = values.email,password=values.password,token=values.token, autoken=cookie.load('token');
+    let formData = new FormData();
+    console.log("token: "+token+"||| autoken: "+autoken);
     formData.append('email',email);
     formData.append('password',password);
     formData.append('token',token);
-    let modify_info = (await axios.post('/api/modify',formData,{
-        headers:{
-            'authorizeToken':autoken
+    axios({
+        headers: {
+            'Authorization': autoken
+        },
+        method: 'post',
+        url: '/api/modify',
+        data: formData
+    }).then(res=>{
+        let success =res.state;
+        if(success){
+            console.log(res);
+            window.location.href("http://106.12.27.104/");
         }
-    })).data;
-    console.log(modify_info);
-    let success = modify_info.state;
-    if(success){
-        console.log(modify_info);
-        window.location.href("http://106.12.27.104/");
-    }
-    else {
-        alert(modify_info.message);
-    }
+    }).catch(err=>{
+        alert("failed!"+err);
+    });
 };
 async function sendEmail(emailAddress){
     if(emailAddress!=""){
@@ -130,7 +133,13 @@ export default class Modifypwd extends React.Component{
                             >
                                 <Input.Password placeholder="please input password"/>
                             </Form.Item>
-        
+                            <Form.Item
+                                label="RepeatPassword"
+                                name="repeatpassword"
+                                rules={[{ required: true, message: 'Please repeat your password!' }]}
+                            >
+                                <Input.Password placeholder="please repeat your password"/>
+                            </Form.Item>
                             <Form.Item
                                 label="Token"
                                 name="token"

@@ -8,8 +8,8 @@ class Login extends React.Component{
       constructor(props){
           super(props);
       this.state = {
-               password:'',
-               email:'',
+         password:'',
+         email:'',
       }
       this.handleChange=this.handleChange.bind(this);
       this.submit=this.submit.bind(this);
@@ -21,10 +21,11 @@ class Login extends React.Component{
      formData.append('email',this.state.email);
      let ret=(await axios.post('/api/login',formData)).data;
      let state=ret.state;
+     let name=ret.message.split(";")[1];
      if(state==true){
-      cookie.save('token',ret.authorizeToken);
-      cookie.save("name",this.state.name);
-      window.location.href="http://106.12.27.104/";//实际使用
+         cookie.save('token',ret.authorizeToken);
+         cookie.save("name",name);
+         window.location.href="http://106.12.27.104/";//实际使用
      }
      else {
         let message=ret.message;

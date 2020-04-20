@@ -68,10 +68,7 @@ async function ToLogin(urlParam) {
     formData.append('code',code);
     formData.append('state',state);
 
-    let person_info = (await axios.post('/api/githubLogin',{
-        code:code,
-        state:state
-    })).data;
+    let person_info = (await axios.post('/api/githubLogin',formData)).data;
 
     let success = person_info.state;
     if(success){

@@ -20,15 +20,13 @@ constructor(props){
 }
 async submit(){
    let formData = new FormData();
-   formData.append('password',this.state.password);
    formData.append('email',this.state.email);
    formData.append('name',this.state.name);
+   formData.append('password',this.state.password);
    formData.append('token',this.state.token);
    let register_return=(await axios.post('/api/register',formData)).data;//实际使用
-   
-   let state =false;
-   state=register_return.state;
-   if(state===true){
+   let success=register_return.state;
+   if(success){
       console.log(register_return);
       alert(register_return.message);
       cookie.save("token",register_return.authorizeToken);
@@ -42,7 +40,6 @@ async submit(){
 }
 //发送验证码
 async check(){
-   console.log(this.state.email);
    let formdata = new FormData();
    formdata.append('email',this.state.email);
    let ret = (await axios.post('/api/applyEmail',formdata)).data;//调用验证码接口?
