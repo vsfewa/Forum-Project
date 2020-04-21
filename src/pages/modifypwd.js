@@ -18,14 +18,32 @@ async function onFinish(values){
     formData.append('email',email);
     formData.append('password',password);
     formData.append('token',token);
+    //METHOD 1:
+    // axios.post('/api/modify',{
+    //     data: formData,
+    //     headers: {
+    //         'Authorization': autoken
+    //     }
+    // })
+    //METHOD 2:
+    // axios.post('/api/modify', formData, {
+    //     headers: {
+    //         'Authorization': autoken
+    //     }
+    // })
+    //METHOD3:
     axios({
+        method: "POST",
+        url: '/api/modify',
+        data: formData,
         headers: {
             'Authorization': autoken
-        },
-        method: 'post',
-        url: '/api/modify',
-        data: formData
-    }).then(res=>{
+        }
+    })
+    //METHOD4:
+    // axios.defaults.headers.post['Authorization'] = autoken;
+    // axios.post('/api/modify',formData)
+    .then(res=>{
         let success =res.state;
         if(success){
             console.log(res);
@@ -161,7 +179,6 @@ export default class Modifypwd extends React.Component{
                             </Form.Item>
                         </Form>
                         </div>
-                        
                     </Content>
                     <Footer style={{textAlign: 'center'}}>Design ©2020 by Group I</Footer>
                 </Layout>
