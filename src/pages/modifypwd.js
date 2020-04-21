@@ -18,39 +18,34 @@ async function onFinish(values){
     formData.append('email',email);
     formData.append('password',password);
     formData.append('token',token);
+    formData.append('Authorization',autoken);
     //METHOD 1:
     // axios.post('/api/modify',{
-    //     data: formData,
-    //     headers: {
-    //         'Authorization': autoken
-    //     }
+    //     data: formData
     // })
     //METHOD 2:
-    // axios.post('/api/modify', formData, {
-    //     headers: {
-    //         'Authorization': autoken
-    //     }
-    // })
+    axios.post('/api/modify', formData
+    //
+    // }
+    )
     //METHOD3:
-    axios({
-        method: "POST",
-        url: '/api/modify',
-        data: formData,
-        headers: {
-            'Authorization': autoken
-        }
-    })
+    // axios({
+    //     method: "POST",
+    //     url: '/api/modify',
+    //     data: formData,
+    // })
     //METHOD4:
     // axios.defaults.headers.post['Authorization'] = autoken;
     // axios.post('/api/modify',formData)
     .then(res=>{
-        let success =res.state;
+        console.log(res.data);
+        let success=res.data.state;
         if(success){
-            console.log(res);
-            window.location.href("http://106.12.27.104/");
+            window.location.href="http://106.12.27.104/";
         }
     }).catch(err=>{
-        alert("failed!"+err);
+        alert("请先登录！"+err);
+        window.location.href="http://106.12.27.104/";
     });
 };
 async function sendEmail(emailAddress){
@@ -152,14 +147,26 @@ export default class Modifypwd extends React.Component{
                                 <Input.Password placeholder="please input password"/>
                             </Form.Item>
                             <Form.Item
-                                label="RepeatPassword"
-                                name="repeatpassword"
-                                rules={[{ required: true, message: 'Please repeat your password!' }]}
+                                label="confirmPassword"
+                                name="confirmpassword"
+                                dependencies={['password']}
+                                hasFeedback
+                                rules={[
+                                    { required: true, message: 'Please confirm your password!' },
+                                    ({ getFieldValue }) => ({
+                                    validator(rule, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                        }
+                                        return Promise.reject('The two passwords that you entered do not match!');
+                                    },
+                                    }),
+                                ]}
                             >
-                                <Input.Password placeholder="please repeat your password"/>
+                                <Input.Password placeholder="please confirm your password"/>
                             </Form.Item>
                             <Form.Item
-                                label="Token"
+                                label="Captcha"
                                 name="token"
                                 rules={[{ required: true, message: 'Please input token!' }]}
                             >
