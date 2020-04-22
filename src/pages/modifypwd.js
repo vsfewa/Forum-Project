@@ -24,10 +24,7 @@ async function onFinish(values){
     //     data: formData
     // })
     //METHOD 2:
-    axios.post('/api/modify', formData
-    //
-    // }
-    )
+    axios.post('/api/modify', formData)
     //METHOD3:
     // axios({
     //     method: "POST",
@@ -130,21 +127,21 @@ export default class Modifypwd extends React.Component{
                                 label="Email"
                                 name="email"
                                 rules={[{ 
-                                        required: true, message: 'Please input your email address!' 
+                                        required: true, message: '请输入邮箱!' 
                                     },{
                                         validator:this.checkEmail.bind(this)
                                     }
                                 ]}
                             >
-                                <Input type="text" placeholder="please input email address" onBlur={ this.modifyEmail.bind(this) }/>
+                                <Input type="text" placeholder="请输入邮箱" onBlur={ this.modifyEmail.bind(this) }/>
                             </Form.Item>
         
                             <Form.Item
                                 label="Password"
                                 name="password"
-                                rules={[{ required: true, message: 'Please input your password!' }]}
+                                rules={[{ required: true, message: '请输入密码!' }]}
                             >
-                                <Input.Password placeholder="please input password"/>
+                                <Input.Password placeholder="请输入密码"/>
                             </Form.Item>
                             <Form.Item
                                 label="confirmPassword"
@@ -152,25 +149,25 @@ export default class Modifypwd extends React.Component{
                                 dependencies={['password']}
                                 hasFeedback
                                 rules={[
-                                    { required: true, message: 'Please confirm your password!' },
+                                    { required: true, message: '请确认密码!' },
                                     ({ getFieldValue }) => ({
                                     validator(rule, value) {
                                         if (!value || getFieldValue('password') === value) {
                                         return Promise.resolve();
                                         }
-                                        return Promise.reject('The two passwords that you entered do not match!');
+                                        return Promise.reject('两个密码不一致!');
                                     },
                                     }),
                                 ]}
                             >
-                                <Input.Password placeholder="please confirm your password"/>
+                                <Input.Password placeholder="请确认密码"/>
                             </Form.Item>
                             <Form.Item
                                 label="Captcha"
                                 name="token"
-                                rules={[{ required: true, message: 'Please input token!' }]}
+                                rules={[{ required: true, message: '请输入验证码!' }]}
                             >
-                                <Input allowClear={true} placeholder="please input token"/>
+                                <Input allowClear={true} placeholder="请输入验证码"/>
                             </Form.Item>
         
                             <Form.Item {...tailLayout}>
@@ -181,7 +178,7 @@ export default class Modifypwd extends React.Component{
         
                             <Form.Item {...tailLayout}>
                                 <Button type="primary" htmlType="submit">
-                                Submit
+                                提交
                                 </Button>
                             </Form.Item>
                         </Form>
